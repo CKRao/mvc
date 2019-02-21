@@ -102,6 +102,7 @@ public class ClassUtil {
      * @param accessible
      */
     private static void setFiled(Field filed, Object target, Object value, boolean accessible) {
+        //filed.setAccessible(true);得作用就是让我们在用反射时访问私有变量
         filed.setAccessible(accessible);
         try {
             filed.set(target,value);
@@ -121,6 +122,7 @@ public class ClassUtil {
                 // 若为普通文件夹，则遍历
                 File file = new File(url.getFile());
                 Path basePath = file.toPath();
+                //walk()产生该目录下由整个目录树中所有文件构成的List<File>
                 return Files.walk(basePath)
                         .filter(path -> path.toFile().getName().endsWith(".class"))
                         .map(path -> getClassByPath(path, basePath, basePackage))
