@@ -22,6 +22,12 @@ import java.lang.reflect.Method;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProxyAdvisor {
+
+    /**
+     * 执行顺序
+     */
+    private int order;
+
     /**
      * 通知
      */
@@ -35,20 +41,18 @@ public class ProxyAdvisor {
     /**
      * 执行代理方法
      */
-    public Object doProxy(Object target, Class<?> targetClass, Method method, Object[] args, MethodProxy proxy) throws Throwable {
-        //如果表达式不匹配，则直接执行目标方法
-        if (!pointcut.matches(method)) {
-            return proxy.invokeSuper(target, args);
-        }
-
+    public Object doProxy(AdviceChain adviceChain) throws Throwable {
         Object result = null;
+        Class<?> targetClass = adviceChain.getTargetClass();
+        Method method = adviceChain.getMethod();
+        Object[] args = adviceChain.getArgs();
 
         if (advice instanceof MethodBeforeAdvice) {
             ((MethodBeforeAdvice) advice).before(targetClass, method, args);
         }
         try {
-            //执行目标类的方法
-            result = proxy.invokeSuper(target,args);
+            //执行代理链方法
+            result = adviceChain.doAdviceChain();
             if (advice instanceof AfterReturningAdvice) {
                 ((AfterReturningAdvice) advice).afterReturning(targetClass, result, method, args);
             }
