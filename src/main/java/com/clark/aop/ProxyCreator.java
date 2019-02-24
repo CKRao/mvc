@@ -1,4 +1,4 @@
-package com.clark;
+package com.clark.aop;
 
 import com.clark.aop.ProxyAdvisor;
 import net.sf.cglib.proxy.Enhancer;

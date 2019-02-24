@@ -13,7 +13,7 @@ import java.lang.reflect.Method;
  * @Description:
  */
 @Slf4j
-@Aspect(target = Controller.class)
+@Aspect(pointcut =  "execution(* com.clark.test.DoodleController.*ForAspect(..))")
 public class DoodleAspect implements AroundAdvice {
     @Override
     public void afterReturning(Class<?> clz, Object returnValue, Method method, Object[] args) throws Throwable {

@@ -16,6 +16,7 @@
         <lombok.version>1.16.20</lombok.version>
         <junit.version>4.12</junit.version>
         <cglib.version>3.2.6</cglib.version>
+        <aspectj.version>1.8.13</aspectj.version>
     </properties>
 
     <dependencies>
@@ -44,6 +45,12 @@
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
             <version>${cglib.version}</version>
+        </dependency>
+        <!-- aspectj -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
         </dependency>
     </dependencies>
 
