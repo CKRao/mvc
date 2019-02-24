@@ -1,5 +1,6 @@
 package com.clark.core;
 
+import com.clark.aop.annotation.Aspect;
 import com.clark.core.annotation.Component;
 import com.clark.core.annotation.Controller;
 import com.clark.core.annotation.Repository;
@@ -37,7 +38,7 @@ public class BeanContainer {
      * 加载bean的注解列表
      */
     private static final List<Class<? extends Annotation>> BEAN_ANNOTATION
-            = Arrays.asList(Component.class, Controller.class, Service.class, Repository.class);
+            = Arrays.asList(Component.class, Controller.class, Service.class, Repository.class,Aspect.class);
 
     /**
      * 获取Bean容器实例
@@ -136,6 +137,7 @@ public class BeanContainer {
      * @return
      */
     public Set<Class<?>> getClassesBySuper(Class<?> superClass) {
+
         return beanMap.keySet()
                 .stream()
                 .filter(superClass::isAssignableFrom)

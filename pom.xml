@@ -15,6 +15,7 @@
         <slf4j-api.version>1.7.25</slf4j-api.version>
         <lombok.version>1.16.20</lombok.version>
         <junit.version>4.12</junit.version>
+        <cglib.version>3.2.6</cglib.version>
     </properties>
 
     <dependencies>
@@ -37,6 +38,12 @@
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
+        </dependency>
+        <!-- cglib -->
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>${cglib.version}</version>
         </dependency>
     </dependencies>
 
