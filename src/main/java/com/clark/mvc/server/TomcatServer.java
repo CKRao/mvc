@@ -58,8 +58,6 @@ public class TomcatServer implements Server {
             ctx.addServletMappingDecoded("/templates/" + "*", "jspServlet");
             ctx.addServletMappingDecoded("/static/" + "*", "defaultServlet");
             ctx.addServletMappingDecoded("/*", "dispatcherServlet");
-            ctx.addServletMappingDecoded("/*", "dispatcherServlet");
-
         } catch (Exception e) {
             log.error("初始化Tomcat失败", e);
             throw new RuntimeException(e);

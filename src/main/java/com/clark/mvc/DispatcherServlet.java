@@ -27,7 +27,7 @@ public class DispatcherServlet extends HttpServlet {
         //获取请求方法和请求路径
         String requestMethod = req.getMethod();
         String requestPath = req.getPathInfo();
-        log.info("[DoodleConfig] {} {}", requestMethod, requestPath);
+        log.info("[ClarkMVCConfig] {} {}", requestMethod, requestPath);
         if (requestPath.endsWith("/")) {
             requestPath = requestPath.substring(0, requestPath.length() - 1);
         }

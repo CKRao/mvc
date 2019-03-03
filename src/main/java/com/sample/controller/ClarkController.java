@@ -14,7 +14,7 @@ import com.clark.mvc.annotation.ResponseBody;
 public class ClarkController {
 
     @ResponseBody
-    @RequestMapping
+    @RequestMapping("/hello")
     public String hello() {
         return "Hello ClarkMVC";
     }
