@@ -31,6 +31,7 @@ public class ResultRender {
     public ResultRender() {
         beanContainer = BeanContainer.getInstance();
     }
+
     /**
      * 执行Controller的方法
      */
@@ -38,7 +39,7 @@ public class ResultRender {
         // 1. 获取HttpServletRequest所有参数
         Map<String, String> requestParam = getRequestParams(req);
         // 2. 实例化调用方法要传入的参数值
-        List<Object> methodParams =  instantiateMethodArgs(controllerInfo.getMethodParameter(), requestParam);
+        List<Object> methodParams = instantiateMethodArgs(controllerInfo.getMethodParameter(), requestParam);
         Object controller = beanContainer.getBean(controllerInfo.getControllerClass());
         Method invokeMethod = controllerInfo.getInvokeMethod();
         Object result;
@@ -59,11 +60,12 @@ public class ResultRender {
     /**
      * Controller方法执行后返回值解析
      */
-    private void resultResolver(ControllerInfo controllerInfo, Object result, HttpServletRequest req, HttpServletResponse resp) {
+    private void resultResolver(ControllerInfo controllerInfo, Object result, HttpServletRequest req,
+                                HttpServletResponse resp) {
         if (ValidateUtil.isEmpty(result)) {
             return;
         }
-        boolean isJson= controllerInfo.getInvokeMethod().isAnnotationPresent(ResponseBody.class);
+        boolean isJson = controllerInfo.getInvokeMethod().isAnnotationPresent(ResponseBody.class);
         if (isJson) {
             // 设置响应头
             resp.setContentType("application/json");
@@ -84,7 +86,7 @@ public class ResultRender {
                 Map<String, Object> model = mv.getModel();
                 if (ValidateUtil.isNotEmpty(model)) {
                     for (Map.Entry<String, Object> entry : model.entrySet()) {
-                        req.setAttribute(entry.getKey(),entry.getValue());
+                        req.setAttribute(entry.getKey(), entry.getValue());
                     }
                 } else if (result instanceof String) {
                     path = ((String) result);
@@ -92,7 +94,8 @@ public class ResultRender {
                     throw new RuntimeException("返回类型不合法");
                 }
                 try {
-                    req.getRequestDispatcher(ClarkMVC.getConfiguration().getResourcePath()+path).forward(req,resp);
+                    req.getRequestDispatcher(ClarkMVC.getConfiguration().getResourcePath() + path)
+                            .forward(req, resp);
                 } catch (Exception e) {
                     log.error("转发请求失败", e);
                     // TODO: 异常统一处理，400等...
@@ -104,6 +107,7 @@ public class ResultRender {
 
     /**
      * 实例化方法参数
+     *
      * @param methodParams
      * @param requestParams
      */
@@ -125,9 +129,9 @@ public class ResultRender {
     private Map<String, String> getRequestParams(HttpServletRequest request) {
         Map<String, String> paramMap = new HashMap<>();
         //GET和POST方法是这样获取请求参数的
-        request.getParameterMap().forEach((paramName,paranValues) -> {
+        request.getParameterMap().forEach((paramName, paranValues) -> {
             if (ValidateUtil.isNotEmpty(paranValues)) {
-                paramMap.put(paramName,paranValues[0]);
+                paramMap.put(paramName, paranValues[0]);
             }
         });
         // TODO: Body、Path、Header等方式的请求参数获取

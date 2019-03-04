@@ -7,13 +7,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.WebResourceRoot;
 import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.servlets.DefaultServlet;
-import org.apache.catalina.startup.FailedContext;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.catalina.webresources.StandardRoot;
 import org.apache.jasper.servlet.JspServlet;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 
@@ -52,11 +50,7 @@ public class TomcatServer implements Server {
             WebResourceRoot resource = new StandardRoot(ctx);
             ctx.setResources(resource);
             // 添加jspServlet，defaultServlet和自己实现的dispatcherServlet
-            tomcat.addServlet("","jspServlet",new JspServlet()).setLoadOnStartup(3);
-            tomcat.addServlet("","defaultServlet",new DefaultServlet()).setLoadOnStartup(1);
             tomcat.addServlet("","dispatcherServlet",new DispatcherServlet()).setLoadOnStartup(0);
-            ctx.addServletMappingDecoded("/templates/" + "*", "jspServlet");
-            ctx.addServletMappingDecoded("/static/" + "*", "defaultServlet");
             ctx.addServletMappingDecoded("/*", "dispatcherServlet");
         } catch (Exception e) {
             log.error("初始化Tomcat失败", e);

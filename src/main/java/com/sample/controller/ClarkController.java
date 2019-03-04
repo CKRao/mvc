@@ -10,7 +10,7 @@ import com.clark.mvc.annotation.ResponseBody;
  * @Description:
  */
 @Controller
-@RequestMapping
+@RequestMapping("/")
 public class ClarkController {
 
     @ResponseBody
